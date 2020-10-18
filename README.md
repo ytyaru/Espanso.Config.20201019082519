@@ -4,16 +4,6 @@
 
 espanso config.
 
-# DEMO
-
-* [demo](https://ytyaru.github.io/Espanso.Config.20201019082519/)
-
-![img](https://github.com/ytyaru/Espanso.Config.20201019082519/blob/master/doc/0.png?raw=true)
-
-# Features
-
-* sales point
-
 # Requirement
 
 * <time datetime="2020-10-19T08:25:10+0900">2020-10-19</time>
@@ -21,7 +11,9 @@ espanso config.
 * [Raspberry Pi OS](https://ja.wikipedia.org/wiki/Raspbian) buster 10.0 2020-08-20 <small>[setup](http://ytyaru.hatenablog.com/entry/2020/10/06/111111)</small>
 * [Raspbian](https://ja.wikipedia.org/wiki/Raspbian) buster 10.0 2019-09-26 <small>[setup](http://ytyaru.hatenablog.com/entry/2019/12/25/222222)</small>
 * bash 5.0.3(1)-release
-* espanso 0.7.2
+* [espanso][] 0.7.2
+
+[espanso]:https://espanso.org/
 
 ```sh
 $ uname -a
