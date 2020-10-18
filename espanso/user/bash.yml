@@ -1,0 +1,68 @@
+# Bash
+# https://espanso.org/docs/
+name: bash
+parent: default
+matches:
+  - trigger: ":date"
+    replace: "{{now}}"
+    vars:
+      - name: now
+        type: date
+        params:
+          format: "%Y-%m-%d %H:%M:%S"
+
+  - trigger: ":run()"
+    replace: |
+        #!/usr/bin/env bash
+        set -Ceu
+        #---------------------------------------------------------------------------
+        # 
+        # CreatedAt: {{now}}
+        #---------------------------------------------------------------------------
+        Run() {
+                THIS="$(realpath "${BASH_SOURCE:-0}")"; HERE="$(dirname "$THIS")"; PARENT="$(dirname "$HERE")"; THIS_NAME="$(basename "$THIS")"; APP_ROOT="$PARENT";
+                cd "$HERE"
+        }
+        Run "$@"
+    vars:
+      - name: now
+        type: shell
+        params:
+          cmd: "date \"+%Y%m%d %H%M%S\""
+
+  - trigger: ":path"
+    replace: |
+        THIS="$(realpath "${BASH_SOURCE:-0}")"; HERE="$(dirname "$THIS")"; PARENT="$(dirname "$HERE")"; THIS_NAME="$(basename "$THIS")"; APP_ROOT="$PARENT";
+
+  # Shell commands
+  - trigger: ":date-shell"
+    replace: "{{now}}"
+    vars:
+      - name: now
+        type: shell
+        params:
+          cmd: "date \"+%Y%m%d %H%M%S\""
+
+  - trigger: ":while"
+    replace: |
+        echo -e "A\nB" | while read line; do { echo "$line"; } done;
+
+  - trigger: ":isint"
+    replace: |
+        IsInt() { test 0 -eq $1 > /dev/null 2>&1 || expr $1 + 0 > /dev/null 2>&1; }
+
+  - trigger: ":isexistcmd"
+    replace: |
+        IsExistCmd() { type "$1" > /dev/null 2>&1; }
+
+  - trigger: ":getopts"
+    replace: |
+        Help() { eval "echo \"$(cat "$APP_ROOT/doc/help.txt")\""; }
+        while getopts :n: OPT; do
+                case $OPT in
+                        n) ARG_NUM="$OPTARG"; continue; ;;
+                        \?) Help; exit 1; ;;
+                esac
+        done
+        ARG_NUM="${ARG_NUM:-30}"
+

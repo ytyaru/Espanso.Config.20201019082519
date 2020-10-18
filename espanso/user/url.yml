@@ -1,0 +1,30 @@
+name: url
+parent: default
+
+# URL
+matches:
+  - triggers: [":?-d",":hatena-draft"]
+    replace: "https://blog.hatena.ne.jp/ytyaru/ytyaru.hatenablog.com/drafts"
+
+  - triggers: [":?-e", ":hatena-entry"]
+    replace: "{{hatena_entry}}"
+    vars:
+      - name: hatena_entry
+        type: shell
+        params:
+          cmd: "echo 'http://ytyaru.hatenablog.com/entry/'$(date +%Y)/$(date +%m)/$(date +%d)/000000"
+
+  - triggers: [":gh-user",":github-user"]
+    replace: "https://github.com/ytyaru"
+
+  - triggers: [":gh-raw", ":github-raw"]
+    replace: "https://github.com/ytyaru/$REPO/blob/master/doc/0.png?raw=true"
+
+  - triggers: [":gh-img", ":github-img"]
+    replace: "{{github_img}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "URL='https://github.com/ytyaru/'\"$REPO_NAME\"'/blob/master/doc/@.png?raw=true'; cat <(seq 0 9 | xargs -I@ echo '![@]('\"$URL\"')') <(echo {A..Z} | tr ' ' '\n' | xargs -I@ echo '![@]('\"$URL\"')') | xsel -bi"
+

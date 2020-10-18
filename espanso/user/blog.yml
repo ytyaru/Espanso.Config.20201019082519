@@ -1,0 +1,10 @@
+# Blog
+name: blog
+parent: default
+matches:
+  - trigger: ":details"
+    replace: "<details><summary>$|$<summary>\n</details>"
+
+  - trigger: ":small"
+    replace: "<small>$|$</small>"
+
